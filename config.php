@@ -1,33 +1,5 @@
 <?php
-// Chargement du fichier .env si les variables d'environnement ne sont pas déjà définies
-// (priorité aux variables d'environnement Docker)
-$env_file = __DIR__ . '/.env';
-if (file_exists($env_file)) {
-    $env_lines = file($env_file, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
-    foreach ($env_lines as $line) {
-        // Ignorer les commentaires
-        if (strpos(trim($line), '#') === 0) {
-            continue;
-        }
-        // Parser les lignes KEY=VALUE
-        if (strpos($line, '=') !== false) {
-            list($key, $value) = explode('=', $line, 2);
-            $key = trim($key);
-            $value = trim($value);
-            // Supprimer les guillemets si présents
-            $value = trim($value, '"\'');
-            // Définir la variable d'environnement si elle n'existe pas déjà
-            // (les variables Docker ont la priorité)
-            if (!getenv($key)) {
-                putenv("$key=$value");
-                $_ENV[$key] = $value;
-            }
-        }
-    }
-}
-
 // Configuration de la base de données
-// Priorité : variables d'environnement Docker > fichier .env
 $db_host = getenv('DB_HOST');
 $db_name = getenv('DB_NAME');
 $db_user = getenv('DB_USER');
