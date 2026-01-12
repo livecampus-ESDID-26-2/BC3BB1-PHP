@@ -20,6 +20,8 @@ try {
         PDO::ATTR_PERSISTENT => false
     ];
     $pdo = new PDO($dsn, $db_user, $db_pass, $options);
+    // S'assurer que la connexion utilise UTF-8
+    $pdo->exec("SET NAMES utf8mb4 COLLATE utf8mb4_unicode_ci");
 } catch (PDOException $e) {
     // Message d'erreur détaillé pour le débogage
     $error_msg = "Erreur de connexion à la base de données : " . $e->getMessage();

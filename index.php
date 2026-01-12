@@ -2,6 +2,9 @@
 require_once 'config.php';
 require_once 'functions.php';
 
+// Définir l'encodage UTF-8 pour les en-têtes HTTP
+header('Content-Type: text/html; charset=utf-8');
+
 // Vérification de l'authentification
 if (!is_logged_in()) {
     redirect('login.php');
@@ -14,6 +17,7 @@ if (!is_logged_in()) {
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Accueil — Garage Auto</title>
   <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/vehicule.css">
 </head>
 <body>
   <header class="topbar">
@@ -24,7 +28,7 @@ if (!is_logged_in()) {
   </header>
   <main class="container">
     <p>Bienvenue, <?php echo h($_SESSION['username']); ?> ! Vous êtes connecté.</p>
-    <p>Cette page sert d'exemple pour l'authentification.</p>
+    <?php include 'vehicule/liste.php'; ?>
   </main>
   <script src="js/main.js"></script>
 </body>
