@@ -88,5 +88,108 @@
 
 .vehicules-table td:last-child {
   text-align: center;
-  width: 80px;
+  width: 120px;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Styles pour le bouton d'édition */
+.edit-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 6px;
+  background: #1e3a2e;
+  border: 1px solid #5aed6a;
+  color: #b3ffb3;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.edit-btn:hover {
+  background: #2a4a3a;
+  border-color: #6aff7a;
+  transform: scale(1.1);
+}
+
+.edit-icon {
+  font-size: 1.2rem;
+  line-height: 1;
+}
+
+/* Styles pour le formulaire de création de véhicule */
+.vehicule-form {
+  background: #12263a;
+  padding: 2rem;
+  border-radius: 12px;
+  border: 1px solid #20354a;
+  max-width: 600px;
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+  color: #cfe6f5;
+  font-weight: 500;
+}
+
+.form-group input[type="text"],
+.form-group select {
+  width: 100%;
+  border: 1px solid #32506b;
+  background: #0f2234;
+  color: #eaf6ff;
+  border-radius: 8px;
+  padding: 0.6rem 0.75rem;
+  outline: none;
+  font-size: 1rem;
+  font-family: inherit;
+}
+
+.form-group input[type="text"]:focus,
+.form-group select:focus {
+  border-color: #4ea7df;
+  box-shadow: 0 0 0 3px rgba(78, 167, 223, 0.2);
+}
+
+.form-group select {
+  cursor: pointer;
+}
+
+.form-actions {
+  display: flex;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.btn-secondary {
+  display: inline-block;
+  background: #20354a;
+  border: 1px solid #32506b;
+  color: #eaf6ff;
+  font-weight: 600;
+  padding: 0.7rem 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  text-decoration: none;
+  text-align: center;
+  transition: all 0.2s ease;
+}
+
+.btn-secondary:hover {
+  background: #2a455a;
+  border-color: #4a6b8a;
 }

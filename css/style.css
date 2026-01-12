@@ -80,6 +80,9 @@ body {
   padding: 0.7rem 1rem;
   border-radius: 8px;
   cursor: pointer;
+  text-decoration: none;
+  display: inline-block;
+  text-align: center;
 }
 .btn-primary:hover {
   filter: brightness(1.1);

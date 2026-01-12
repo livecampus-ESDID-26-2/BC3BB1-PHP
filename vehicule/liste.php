@@ -26,11 +26,16 @@ $vehicules = get_all_vehicules($pdo);
     <?php if (empty($vehicules)): ?>
         <div class="no-vehicules">
             <p>Aucun véhicule</p>
-            <button class="btn-primary" onclick="alert('Fonctionnalité à venir')">
+            <a href="vehicule/create.php" class="btn-primary">
                 Ajouter votre premier véhicule
-            </button>
+            </a>
         </div>
     <?php else: ?>
+        <div style="margin-bottom: 1.5rem;">
+            <a href="vehicule/create.php" class="btn-primary">
+                Ajouter un véhicule
+            </a>
+        </div>
         <table class="vehicules-table">
             <thead>
                 <tr>
@@ -59,12 +64,19 @@ $vehicules = get_all_vehicules($pdo);
                             ?>
                         </td>
                         <td>
-                            <a href="vehicule/delete.php?plaque=<?php echo urlencode($vehicule['plaque_immatriculation_raw']); ?>" 
-                               class="delete-btn" 
-                               onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce véhicule ?');"
-                               title="Supprimer">
-                                <span class="delete-icon">🗑️</span>
-                            </a>
+                            <div class="action-buttons">
+                                <a href="vehicule/edit.php?plaque=<?php echo urlencode($vehicule['plaque_immatriculation_raw']); ?>" 
+                                   class="edit-btn" 
+                                   title="Modifier">
+                                    <span class="edit-icon">✏️</span>
+                                </a>
+                                <a href="vehicule/delete.php?plaque=<?php echo urlencode($vehicule['plaque_immatriculation_raw']); ?>" 
+                                   class="delete-btn" 
+                                   onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce véhicule ?');"
+                                   title="Supprimer">
+                                    <span class="delete-icon">🗑️</span>
+                                </a>
+                            </div>
                         </td>
                     </tr>
                 <?php endforeach; ?>
