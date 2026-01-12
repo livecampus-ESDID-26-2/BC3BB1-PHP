@@ -1,0 +1,9 @@
+.git
+.gitignore
+README.md
+BB3-01-PHP.pdf
+*.md
+.env
+.env.local
+.env.*.local
+

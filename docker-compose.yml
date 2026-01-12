@@ -1,0 +1,64 @@
+version: "3.8"
+
+services:
+  # Service PHP/Apache
+  web:
+    build: .
+    container_name: garage_php_web
+    ports:
+      - "8080:80"
+    volumes:
+      # Montage du répertoire courant pour le hot-reload automatique
+      # Les modifications de code sont immédiatement reflétées dans le conteneur
+      - .:/var/www/html:cached
+    env_file:
+      - .env
+    environment:
+      - DB_HOST=${DB_HOST:-db}
+      - DB_NAME=${DB_NAME:-garage_site_php}
+      - DB_USER=${DB_USER:-root}
+      - DB_PASSWORD=${DB_PASSWORD:-rootpassword}
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - garage_network
+
+  # Service MySQL
+  db:
+    image: mysql:8.0
+    container_name: garage_php_db
+    env_file:
+      - .env
+    environment:
+      - MYSQL_ROOT_PASSWORD=${DB_PASSWORD:-rootpassword}
+      - MYSQL_DATABASE=${DB_NAME:-garage_site_php}
+    ports:
+      - "3307:3306"  # Port 3307 sur l'hôte pour éviter les conflits avec MySQL local
+    volumes:
+      - db_data:/var/lib/mysql
+      - ./database.sql:/docker-entrypoint-initdb.d/database.sql
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "mysqladmin",
+          "ping",
+          "-h",
+          "localhost",
+          "-u",
+          "root",
+          "-p${MYSQL_ROOT_PASSWORD}",
+        ]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+    networks:
+      - garage_network
+
+volumes:
+  db_data:
+
+networks:
+  garage_network:
+    driver: bridge
