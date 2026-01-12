@@ -15,6 +15,14 @@ $vehicules = get_all_vehicules($pdo);
 <div class="vehicules-section">
     <h2>Liste des véhicules</h2>
     
+    <?php if (isset($_SESSION['success'])): ?>
+        <div class="alert alert-success"><?php echo h($_SESSION['success']); unset($_SESSION['success']); ?></div>
+    <?php endif; ?>
+    
+    <?php if (isset($_SESSION['error'])): ?>
+        <div class="alert"><?php echo h($_SESSION['error']); unset($_SESSION['error']); ?></div>
+    <?php endif; ?>
+    
     <?php if (empty($vehicules)): ?>
         <div class="no-vehicules">
             <p>Aucun véhicule</p>
@@ -31,6 +39,7 @@ $vehicules = get_all_vehicules($pdo);
                     <th>Modèle</th>
                     <th>Année</th>
                     <th>Client</th>
+                    <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
@@ -48,6 +57,14 @@ $vehicules = get_all_vehicules($pdo);
                                 echo '-';
                             }
                             ?>
+                        </td>
+                        <td>
+                            <a href="vehicule/delete.php?plaque=<?php echo urlencode($vehicule['plaque_immatriculation_raw']); ?>" 
+                               class="delete-btn" 
+                               onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce véhicule ?');"
+                               title="Supprimer">
+                                <span class="delete-icon">🗑️</span>
+                            </a>
                         </td>
                     </tr>
                 <?php endforeach; ?>

@@ -34,6 +34,9 @@ function get_all_vehicules($pdo) {
         
         // Échapper toutes les données avec la fonction h() pour la sécurité XSS
         foreach ($vehicules as &$vehicule) {
+            // Garder la valeur originale de la plaque pour l'URL
+            $vehicule['plaque_immatriculation_raw'] = $vehicule['plaque_immatriculation'];
+            // Échapper la plaque pour l'affichage
             $vehicule['plaque_immatriculation'] = $vehicule['plaque_immatriculation'] ? h($vehicule['plaque_immatriculation']) : '';
             $vehicule['marque'] = $vehicule['marque'] ? h($vehicule['marque']) : '';
             $vehicule['modele'] = $vehicule['modele'] ? h($vehicule['modele']) : '';
@@ -51,6 +54,25 @@ function get_all_vehicules($pdo) {
         return $vehicules;
     } catch (PDOException $e) {
         return [];
+    }
+}
+
+/**
+ * Supprime un véhicule par sa plaque d'immatriculation
+ * 
+ * @param PDO $pdo Instance de connexion PDO
+ * @param string $plaque_immatriculation Plaque d'immatriculation du véhicule à supprimer
+ * @return bool True si la suppression a réussi, False sinon
+ */
+function delete_vehicule($pdo, $plaque_immatriculation) {
+    try {
+        $sql = "DELETE FROM vehicule WHERE plaque_immatriculation = :plaque";
+        $stmt = $pdo->prepare($sql);
+        $stmt->bindValue(':plaque', $plaque_immatriculation, PDO::PARAM_STR);
+        
+        return $stmt->execute();
+    } catch (PDOException $e) {
+        return false;
     }
 }
 

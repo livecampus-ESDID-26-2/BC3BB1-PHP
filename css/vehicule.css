@@ -58,3 +58,35 @@
 .vehicules-table tbody tr:last-child td {
   border-bottom: none;
 }
+
+/* Styles pour le bouton de suppression */
+.delete-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 6px;
+  background: #3a0e0e;
+  border: 1px solid #ed6a5a;
+  color: #ffb3b3;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.delete-btn:hover {
+  background: #4a1515;
+  border-color: #ff6b5a;
+  transform: scale(1.1);
+}
+
+.delete-icon {
+  font-size: 1.2rem;
+  line-height: 1;
+}
+
+.vehicules-table td:last-child {
+  text-align: center;
+  width: 80px;
+}
